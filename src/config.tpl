@@ -1,6 +1,6 @@
 {
   "cloud": {
-    "project_id": "${project}",
+    "project": "${project}",
     "redirect_url": "${redirect_url}"
   },
   "slack": {
