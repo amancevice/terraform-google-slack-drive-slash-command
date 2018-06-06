@@ -6,4 +6,5 @@
   "slack": {
     "web_api_token": "${web_api_token}",
     "verification_token": "${verification_token}"
+  }
 }
