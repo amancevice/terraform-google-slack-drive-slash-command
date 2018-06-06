@@ -59,7 +59,7 @@ variable "slash_command" {
 
 variable "timeout" {
   description = "Timeout in seconds for Slack event listener."
-  default     = 60
+  default     = 10
 }
 
 variable "users" {
