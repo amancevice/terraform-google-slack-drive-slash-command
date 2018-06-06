@@ -56,7 +56,7 @@ function verifyUser(req) {
   if (users.excluded.indexOf(req.body.user_id) >= 0 ||  // *not* excluded
       (users.included.length > 0 &&                     // non-empty included
        users.included.indexOf(req.body.user_id) < 0)) { // not included
-    return Promise.reject(messages.slash_commands.bad_user);
+    return Promise.reject(messages.bad_user);
   }
   return Promise.resolve(req);
 }
@@ -68,7 +68,7 @@ function verifyUser(req) {
  */
 function verifyChannel(req) {
   if (req.body.channel_id[0] !== 'C' && req.body.channel_id[0] !== 'G') {
-    return Promise.reject(messages.slash_commands.bad_channel);
+    return Promise.reject(messages.bad_channel);
   }
   return Promise.resolve(req);
 }
@@ -79,8 +79,8 @@ function verifyChannel(req) {
  * @param {object} req Cloud Function request context.
  */
 function verifyText(req) {
-  if (messages.slash_commands[req.body.text || 'help'] === undefined) {
-    return Promise.reject(interpolate(messages.slash_commands.bad_text, {
+  if (messages[req.body.text || 'help'] === undefined) {
+    return Promise.reject(interpolate(messages.bad_text, {
       cmd: app.slash_command,
     }));
   }
@@ -93,7 +93,7 @@ function verifyText(req) {
  * @param {object} req Cloud Function request context.
  */
 function getMessage(req) {
-  return Promise.resolve(interpolate(messages.slash_commands[req.body.text || 'help'], {
+  return Promise.resolve(interpolate(messages[req.body.text || 'help'], {
     channel: req.body.channel_id[0] === 'C' ? `<#${req.body.channel_id}>` : 'this channel',
     cmd: app.slash_command,
     color: app.color,

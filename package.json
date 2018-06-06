@@ -1,6 +1,6 @@
 {
   "name": "slack-drive-slash-command",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Access Slack Drive using Slack slash commands",
   "main": "index.js",
   "dependencies": {
