@@ -81,7 +81,7 @@ function verifyChannel(req) {
 function verifyText(req) {
   if (messages[req.body.text || 'help'] === undefined) {
     return Promise.reject(interpolate(messages.bad_text, {
-      cmd: app.slash_command,
+      cmd: config.slack.slash_command,
     }));
   }
   return Promise.resolve(req);
@@ -95,8 +95,8 @@ function verifyText(req) {
 function getMessage(req) {
   return Promise.resolve(interpolate(messages[req.body.text || 'help'], {
     channel: req.body.channel_id[0] === 'C' ? `<#${req.body.channel_id}>` : 'this channel',
-    cmd: app.slash_command,
-    color: app.color,
+    cmd: config.slack.slash_command,
+    color: config.slack.color,
     ts: new Date()/1000,
     team: req.body.team_domain,
     url: `${config.cloud.redirect_url}?channel=${req.body.channel_id}&user=${req.body.user_id}`,

@@ -5,6 +5,10 @@ variable "bucket_name" {
   description = "Cloud Storage bucket for storing Cloud Function code archives."
 }
 
+variable "channel" {
+  description = "Slack channel ID for logging messages."
+}
+
 variable "client_secret" {
   description = "Google Cloud client secret JSON."
 }
