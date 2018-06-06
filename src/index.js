@@ -1,5 +1,6 @@
 const config = require('./config.json');
 const messages = require('./messages.json');
+const users = require('./users.json');
 
 /**
  * Interpolate ${values} in a JSON object and replace with a given mapping.
@@ -52,10 +53,9 @@ function verifyToken(req) {
  * @param {object} req Cloud Function request context.
  */
 function verifyUser(req) {
-  console.log(req.body.user_id);
-  if (config.slack.users.excluded.indexOf(req.body.user_id) >= 0 ||  // *not* excluded
-      (config.slack.users.included.length > 0 &&                     // non-empty included
-       config.slack.users.included.indexOf(req.body.user_id) < 0)) { // not included
+  if (users.excluded.indexOf(req.body.user_id) >= 0 ||  // *not* excluded
+      (users.included.length > 0 &&                     // non-empty included
+       users.included.indexOf(req.body.user_id) < 0)) { // not included
     return Promise.reject(messages.slash_commands.bad_user);
   }
   return Promise.resolve(req);
@@ -81,7 +81,7 @@ function verifyChannel(req) {
 function verifyText(req) {
   if (messages.slash_commands[req.body.text || 'help'] === undefined) {
     return Promise.reject(interpolate(messages.slash_commands.bad_text, {
-      cmd: config.slack.slash_command,
+      cmd: app.slash_command,
     }));
   }
   return Promise.resolve(req);
@@ -95,11 +95,11 @@ function verifyText(req) {
 function getMessage(req) {
   return Promise.resolve(interpolate(messages.slash_commands[req.body.text || 'help'], {
     channel: req.body.channel_id[0] === 'C' ? `<#${req.body.channel_id}>` : 'this channel',
-    cmd: config.slack.slash_command,
-    color: config.slack.color,
+    cmd: app.slash_command,
+    color: app.color,
     ts: new Date()/1000,
     team: req.body.team_domain,
-    url: `https://${config.cloud.region}-${config.cloud.project_id}.cloudfunctions.net/${config.cloud.redirect_function}?channel=${req.body.channel_id}&user=${req.body.user_id}`,
+    url: `${config.cloud.redirect_url}?channel=${req.body.channel_id}&user=${req.body.user_id}`,
   }));
 }
 

@@ -5,22 +5,32 @@ variable "bucket_name" {
   description = "Cloud Storage bucket for storing Cloud Function code archives."
 }
 
+variable "client_secret" {
+  description = "Google Cloud client secret JSON."
+}
+
+variable "project" {
+  description = "The ID of the project to apply any resources to."
+}
+
+variable "redirect_url" {
+  description = "Cloud Function URL for redirecting to Google Drive from Slack."
+}
+
+variable "verification_token" {
+  description = "Slack verification token."
+}
+
+variable "web_api_token" {
+  description = "Slack Web API token."
+}
+
 /**
  * Optional Variables
  */
 variable "bucket_prefix" {
   description = "Prefix for Cloud Storage bucket."
   default     = ""
-}
-
-variable "client_secret" {
-  description = "Google Cloud client secret JSON filename."
-  default     = "client_secret.json"
-}
-
-variable "config" {
-  description = "App config JSON filename."
-  default     = "config.json"
 }
 
 variable "function_name" {
@@ -33,11 +43,6 @@ variable "memory" {
   default     = 128
 }
 
-variable "region" {
-  description = "The region to operate under, if not specified by a given resource."
-  default     = "us-central1"
-}
-
 variable "slash_command" {
   description = "Name of slash command in Slack"
   default     = "drive"
@@ -46,4 +51,16 @@ variable "slash_command" {
 variable "timeout" {
   description = "Timeout in seconds for Slack event listener."
   default     = 60
+}
+
+variable "users" {
+  description = "Users to include/exclude"
+  type        = "map"
+
+  default {
+    included = []
+    excluded = [
+      "USLACKBOT"
+    ]
+  }
 }
