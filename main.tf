@@ -7,13 +7,14 @@ provider "template" {
 }
 
 locals {
-  version = "0.0.4"
+  version = "0.0.5"
 }
 
 data "template_file" "config" {
   template = "${file("${path.module}/src/config.tpl")}"
 
   vars {
+    color              = "${var.color}"
     project            = "${var.project}"
     redirect_url       = "${var.redirect_url}"
     verification_token = "${var.verification_token}"

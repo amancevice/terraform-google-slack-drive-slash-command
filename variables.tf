@@ -33,6 +33,11 @@ variable "bucket_prefix" {
   default     = ""
 }
 
+variable "color" {
+  description = "Default color for slackbot message attachments."
+  default     = "good"
+}
+
 variable "function_name" {
   description = "Cloud Function for publishing events from Slack to Pub/Sub."
   default     = "slack-drive-slash-command"

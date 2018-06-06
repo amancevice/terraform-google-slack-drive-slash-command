@@ -4,7 +4,8 @@
     "redirect_url": "${redirect_url}"
   },
   "slack": {
-    "web_api_token": "${web_api_token}",
-    "verification_token": "${verification_token}"
+    "color": "${color}",
+    "verification_token": "${verification_token}",
+    "web_api_token": "${web_api_token}"
   }
 }
